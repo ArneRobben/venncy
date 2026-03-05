@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["venncy*"]
+exclude = ["notebooks*"]
+
+[project]
+name = "venncy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.3.5",
+    "scipy>=1.16.3",
+]
+
+[project.optional-dependencies]
+matplotlib = ["matplotlib>=3.8"]
+plotly = ["plotly>=5.0"]
+pyvis = ["pyvis>=0.3", "networkx>=3.0"]
+all = [
+    "matplotlib>=3.8",
+    "plotly>=5.0",
+    "pyvis>=0.3",
+    "networkx>=3.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.0",
+    "jupyter>=1.1.1",
+]
