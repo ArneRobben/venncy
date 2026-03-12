@@ -31,11 +31,21 @@ def find_2venn_distance(area_a: float, area_b: float, area_ab: float) -> VennRes
             circle's area, or if the numerical solver fails to converge.
     """
 
+    # Convert to float to ensure consistent comparisons
+    area_a = float(area_a)
+    area_b = float(area_b)
+    area_ab = float(area_ab)
+
     # make sure inputs are valid
     if area_a < 0 or area_b < 0 or area_ab < 0:
         raise ValueError("Areas must be positive")
-    if area_ab > area_a or area_ab > area_b:
+    if area_ab > area_a and not np.isclose(area_ab, area_a):
         raise ValueError("Intersection area must be less than or equal to the area of each circle")
+    if area_ab > area_b and not np.isclose(area_ab, area_b):
+        raise ValueError("Intersection area must be less than or equal to the area of each circle")
+
+    # Clamp area_ab to handle floating-point imprecision for large integers
+    area_ab = min(area_ab, area_a, area_b)
 
     R = np.sqrt(area_a / np.pi)  # radius of circle A
     r = np.sqrt(area_b / np.pi)  # radius of circle B
@@ -45,7 +55,7 @@ def find_2venn_distance(area_a: float, area_b: float, area_ab: float) -> VennRes
         return VennResult(R, r, R + r)
 
     # Full containment — one circle sits inside the other
-    if area_ab == area_a or area_ab == area_b:
+    if np.isclose(area_ab, area_a) or np.isclose(area_ab, area_b):
         return VennResult(R, r, abs(R - r))
 
     def func(d):
