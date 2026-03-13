@@ -21,11 +21,17 @@ dependencies = [
 matplotlib = ["matplotlib>=3.8"]
 plotly = ["plotly>=5.0"]
 pyvis = ["pyvis>=0.3", "networkx>=3.0"]
+bokeh = ["bokeh>=3.0"]
+drawsvg = ["drawsvg>=2.0"]
+pillow = ["Pillow>=10.0"]
 all = [
     "matplotlib>=3.8",
     "plotly>=5.0",
     "pyvis>=0.3",
     "networkx>=3.0",
+    "bokeh>=3.0",
+    "drawsvg>=2.0",
+    "Pillow>=10.0",
 ]
 
 [dependency-groups]
