@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from venncy import find_2venn_distance, VennResult
+from venncy import find_2venn_distance, VennResult_2_2
 
 try:
     from PIL import Image, ImageDraw, ImageFont
@@ -43,15 +43,15 @@ def plot_venn2(
         A PIL Image (RGBA). Call ``.save(path)`` to export it.
     """
     result = find_2venn_distance(area_a, area_b, area_ab)
-    R, r, d = result
+    r_a, r_b, d_ab = result
 
-    centre_a_x = -d / 2.0
-    centre_b_x = d / 2.0
+    centre_a_x = -d_ab / 2.0
+    centre_b_x = d_ab / 2.0
 
-    margin = 0.25 * max(R, r)
-    xmin = min(centre_a_x - R, centre_b_x - r) - margin
-    xmax = max(centre_a_x + R, centre_b_x + r) + margin
-    ymax = max(R, r) + margin
+    margin = 0.25 * max(r_a, r_b)
+    xmin = min(centre_a_x - r_a, centre_b_x - r_b) - margin
+    xmax = max(centre_a_x + r_a, centre_b_x + r_b) + margin
+    ymax = max(r_a, r_b) + margin
     data_w = xmax - xmin
     data_h = 2 * ymax
 
@@ -67,8 +67,8 @@ def plot_venn2(
 
     # Draw each circle on a temporary layer for alpha blending
     for cx, radius, color in [
-        (centre_a_x, R, colors[0]),
-        (centre_b_x, r, colors[1]),
+        (centre_a_x, r_a, colors[0]),
+        (centre_b_x, r_b, colors[1]),
     ]:
         layer = Image.new("RGBA", (width, height), (0, 0, 0, 0))
         layer_draw = ImageDraw.Draw(layer)

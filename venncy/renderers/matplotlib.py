@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from venncy import find_2venn_distance, VennResult
+from venncy import find_2venn_distance, VennResult_2_2
 
 try:
     import matplotlib.pyplot as plt
@@ -46,19 +46,19 @@ def plot_venn2(
         (fig, ax) — the matplotlib Figure and Axes containing the diagram.
     """
     result = find_2venn_distance(area_a, area_b, area_ab)
-    R, r, d = result
+    r_a, r_b, d_ab = result
 
     # Place circles symmetrically about the origin
-    centre_a = (-d / 2.0, 0.0)
-    centre_b = (d / 2.0, 0.0)
+    centre_a = (-d_ab / 2.0, 0.0)
+    centre_b = (d_ab / 2.0, 0.0)
 
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize, dpi=dpi)
     else:
         fig = ax.get_figure()
 
-    circle_a = Circle(centre_a, R, facecolor=colors[0], alpha=alpha, edgecolor=colors[0], lw=2)
-    circle_b = Circle(centre_b, r, facecolor=colors[1], alpha=alpha, edgecolor=colors[1], lw=2)
+    circle_a = Circle(centre_a, r_a, facecolor=colors[0], alpha=alpha, edgecolor=colors[0], lw=2)
+    circle_b = Circle(centre_b, r_b, facecolor=colors[1], alpha=alpha, edgecolor=colors[1], lw=2)
     ax.add_patch(circle_a)
     ax.add_patch(circle_b)
 
@@ -69,10 +69,10 @@ def plot_venn2(
     # Keep 1:1 aspect ratio so radii are visually correct
     ax.set_aspect("equal", adjustable="datalim")
 
-    margin = 0.25 * max(R, r)
-    xmin = min(centre_a[0] - R, centre_b[0] - r) - margin
-    xmax = max(centre_a[0] + R, centre_b[0] + r) + margin
-    ymax = max(R, r) + margin
+    margin = 0.25 * max(r_a, r_b)
+    xmin = min(centre_a[0] - r_a, centre_b[0] - r_b) - margin
+    xmax = max(centre_a[0] + r_a, centre_b[0] + r_b) + margin
+    ymax = max(r_a, r_b) + margin
     ax.set_xlim(xmin, xmax)
     ax.set_ylim(-ymax, ymax)
     ax.axis("off")

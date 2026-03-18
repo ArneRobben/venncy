@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from venncy import find_2venn_distance, VennResult
+from venncy import find_2venn_distance, VennResult_2_2
 
 try:
     import drawsvg as draw
@@ -42,15 +42,15 @@ def plot_venn2(
         ``.save_png(path)`` on it, or display it directly in a notebook.
     """
     result = find_2venn_distance(area_a, area_b, area_ab)
-    R, r, d = result
+    r_a, r_b, d_ab = result
 
-    centre_a_x = -d / 2.0
-    centre_b_x = d / 2.0
+    centre_a_x = -d_ab / 2.0
+    centre_b_x = d_ab / 2.0
 
-    margin = 0.25 * max(R, r)
-    xmin = min(centre_a_x - R, centre_b_x - r) - margin
-    xmax = max(centre_a_x + R, centre_b_x + r) + margin
-    ymax = max(R, r) + margin
+    margin = 0.25 * max(r_a, r_b)
+    xmin = min(centre_a_x - r_a, centre_b_x - r_b) - margin
+    xmax = max(centre_a_x + r_a, centre_b_x + r_b) + margin
+    ymax = max(r_a, r_b) + margin
     data_w = xmax - xmin
     data_h = 2 * ymax
 
@@ -76,7 +76,7 @@ def plot_venn2(
 
     # Circle A
     drawing.append(draw.Circle(
-        centre_a_x, 0, R,
+        centre_a_x, 0, r_a,
         fill=colors[0],
         fill_opacity=alpha,
         stroke=colors[0],
@@ -85,7 +85,7 @@ def plot_venn2(
 
     # Circle B
     drawing.append(draw.Circle(
-        centre_b_x, 0, r,
+        centre_b_x, 0, r_b,
         fill=colors[1],
         fill_opacity=alpha,
         stroke=colors[1],

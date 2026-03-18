@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from math import pi as PI
 
-from venncy import find_2venn_distance, VennResult
+from venncy import find_2venn_distance, VennResult_2_2
 
 try:
     import networkx as nx
@@ -45,24 +45,24 @@ def plot_venn2(
         The pyvis Network object (the HTML file has already been written).
     """
     result = find_2venn_distance(area_a, area_b, area_ab)
-    R, r, d = result
+    r_a, r_b, d_ab = result
 
     # --- Build networkx graph ---
     G = nx.Graph()
     G.add_nodes_from(list(labels))
 
-    pos = {labels[0]: (-d / 2.0, 0.0), labels[1]: (d / 2.0, 0.0)}
-    radii = {labels[0]: R, labels[1]: r}
+    pos = {labels[0]: (-d_ab / 2.0, 0.0), labels[1]: (d_ab / 2.0, 0.0)}
+    radii = {labels[0]: r_a, labels[1]: r_b}
 
     # --- Map data-space to pixel canvas ---
     margin_px = 60
     usable_w = canvas_width - 2 * margin_px
     usable_h = canvas_height - 2 * margin_px
 
-    xmin = min(pos[labels[0]][0] - R, pos[labels[1]][0] - r)
-    xmax = max(pos[labels[0]][0] + R, pos[labels[1]][0] + r)
-    ymin = min(-R, -r)
-    ymax = max(R, r)
+    xmin = min(pos[labels[0]][0] - r_a, pos[labels[1]][0] - r_b)
+    xmax = max(pos[labels[0]][0] + r_a, pos[labels[1]][0] + r_b)
+    ymin = min(-r_a, -r_b)
+    ymax = max(r_a, r_b)
 
     data_w = xmax - xmin
     data_h = ymax - ymin

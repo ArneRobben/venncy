@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from venncy import find_2venn_distance, VennResult
+from venncy import find_2venn_distance, VennResult_2_2
 
 try:
     import plotly.graph_objects as go
@@ -41,10 +41,10 @@ def plot_venn2(
         A plotly Figure containing the Venn diagram.
     """
     result = find_2venn_distance(area_a, area_b, area_ab)
-    R, r, d = result
+    r_a, r_b, d_ab = result
 
-    centre_a = (-d / 2.0, 0.0)
-    centre_b = (d / 2.0, 0.0)
+    centre_a = (-d_ab / 2.0, 0.0)
+    centre_b = (d_ab / 2.0, 0.0)
 
     fig = go.Figure()
 
@@ -52,8 +52,8 @@ def plot_venn2(
     fig.add_shape(
         type="circle",
         xref="x", yref="y",
-        x0=centre_a[0] - R, y0=centre_a[1] - R,
-        x1=centre_a[0] + R, y1=centre_a[1] + R,
+        x0=centre_a[0] - r_a, y0=centre_a[1] - r_a,
+        x1=centre_a[0] + r_a, y1=centre_a[1] + r_a,
         line_color=line_colors[0],
         fillcolor=colors[0],
     )
@@ -62,8 +62,8 @@ def plot_venn2(
     fig.add_shape(
         type="circle",
         xref="x", yref="y",
-        x0=centre_b[0] - r, y0=centre_b[1] - r,
-        x1=centre_b[0] + r, y1=centre_b[1] + r,
+        x0=centre_b[0] - r_b, y0=centre_b[1] - r_b,
+        x1=centre_b[0] + r_b, y1=centre_b[1] + r_b,
         line_color=line_colors[1],
         fillcolor=colors[1],
     )
@@ -82,14 +82,14 @@ def plot_venn2(
         width=width,
         height=height,
         xaxis=dict(
-            range=[min(centre_a[0] - R, centre_b[0] - r) - margin,
-                   max(centre_a[0] + R, centre_b[0] + r) + margin],
+            range=[min(centre_a[0] - r_a, centre_b[0] - r_b) - margin,
+                   max(centre_a[0] + r_a, centre_b[0] + r_b) + margin],
             zeroline=False,
             scaleanchor="y",
             scaleratio=1,
         ),
         yaxis=dict(
-            range=[-max(R, r) - margin, max(R, r) + margin],
+            range=[-max(r_a, r_b) - margin, max(r_a, r_b) + margin],
             zeroline=False,
         ),
         showlegend=False,
