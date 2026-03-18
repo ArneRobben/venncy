@@ -1,4 +1,4 @@
-"""Matplotlib renderer for 2-circle Venn diagrams."""
+"""Matplotlib renderer for Venn diagrams."""
 
 from __future__ import annotations
 
