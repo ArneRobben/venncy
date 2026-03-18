@@ -38,4 +38,6 @@ all = [
 dev = [
     "ipykernel>=7.1.0",
     "jupyter>=1.1.1",
+    "matplotlib-venn>=1.1.2",
+    "shapely>=2.1.2",
 ]
