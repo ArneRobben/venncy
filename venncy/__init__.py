@@ -1,1 +1,1 @@
-from .venncy import VennResult, find_2venn_distance
+from .venncy import VennResult2, VennResult3, find_2venn_distance, find_3venn_distance
