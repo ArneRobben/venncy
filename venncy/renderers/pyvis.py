@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import numpy as np
-from math import pi as PI
 
 from venncy import find_2venn_distance, find_3venn_distance
 

@@ -7,7 +7,7 @@ import numpy as np
 from venncy import find_2venn_distance, find_3venn_distance
 
 try:
-    from bokeh.plotting import figure
+    from bokeh.plotting import figure, Figure
     from bokeh.models import Label
 except ImportError as e:
     raise ImportError(
@@ -47,7 +47,7 @@ def plot_venn2(
     height: int = 600,
     text_kwargs: dict | None = None,
     **kwargs,
-) -> figure:
+) -> Figure:
     """
     Draw a 2-circle Venn diagram using Bokeh.
 
