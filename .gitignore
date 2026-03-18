@@ -9,6 +9,8 @@ wheels/
 *.css
 *.html
 notebooks/lib
+.png
+.svg
 
 # Virtual environments
 .venv
